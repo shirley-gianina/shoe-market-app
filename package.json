@@ -1,0 +1,20 @@
+{
+  "name": "shoe-market-app",
+  "description": "Webcomponent shoe-market-app following open-wc recommendations",
+  "license": "MIT",
+  "author": "shoe-market-app",
+  "version": "0.0.0",
+  "scripts": {
+    "analyze": "cem analyze --litelement",
+    "start": "web-dev-server"
+  },
+  "dependencies": {
+    "lit-element": "3.1.1",
+    "lit-element-router": "^2.0.3"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.4.17",
+    "@web/dev-server": "^0.1.28"
+  },
+  "customElements": "custom-elements.json"
+}
