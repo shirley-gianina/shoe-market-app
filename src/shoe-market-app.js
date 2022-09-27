@@ -3,6 +3,7 @@ import { router } from "lit-element-router";
 
 import "./app-link";
 import "./app-main";
+import "./pages/page-cart";
 import "./pages/page-products";
 import "./pages/page-product-detail";
 import "./components/lit-header";
@@ -20,15 +21,15 @@ class ShoeMarketApp extends router(LitElement) {
     return [
       {
         name: "home",
-        pattern: "",
-      },
-      {
-        name: "products",
-        pattern: "products",
+        pattern: "/",
       },
       {
         name: "product-detail",
         pattern: "product-detail/:id",
+      },
+      {
+        name: "cart",
+        pattern: "cart",
       },
       {
         name: "not-found",
@@ -48,20 +49,21 @@ class ShoeMarketApp extends router(LitElement) {
     this.params = params;
     this.query = query;
     this.route = route;
-    console.log(params, "soy el params");
-    console.log(route, params, query, data);
   }
 
   render() {
     return html`
       <lit-header></lit-header>
       <app-main active-route=${this.route}>
-        <h1 route="home">Home</h1>
-        <page-products route="products"></page-products>
-        <page-product-detail
-          route="product-detail"
-          productId=${this.params.id}
-        ></page-product-detail>
+        <page-products route="home"></page-products>
+
+        ${this.params.id
+          ? html` <page-product-detail
+              route="product-detail"
+              productId=${this.params.id}
+            ></page-product-detail>`
+          : ""}
+          <page-cart route="cart"></page-cart>
       </app-main>
     `;
   }

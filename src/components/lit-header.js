@@ -4,7 +4,7 @@ import { LitElement, html, css } from "lit-element";
 class LitHeader extends LitElement {
   static get styles() {
     return [
-   /*    globalCSS, */
+      /*    globalCSS, */
       css`
         :host {
           display: block;
@@ -70,7 +70,7 @@ class LitHeader extends LitElement {
       <header>
         <div>
           <div class="content-logo">
-            <app-link href="/products">
+            <app-link href="/">
               <div class="logo">
                 <img src="/assets/logo-icon.png" alt="logo-img" />
               </div>
@@ -84,8 +84,10 @@ class LitHeader extends LitElement {
             </app-link>
             <h5>Men´s Lifestyle Sneakers</h5>
             <button>
+            <app-link href="cart">
               <img src="./assets/carrito-icon.png" alt="carrito-icon-img" />
             </button>
+            </app-link>
           </div>
         </div>
       </header>

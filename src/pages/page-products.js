@@ -31,7 +31,7 @@ export class PageProducts extends LitElement {
 
         .content {
           display: grid;
-          grid-template-columns: 15% 80%;
+          grid-template-columns: 20% 75%;
           gap: 5%;
         }
 
@@ -57,7 +57,7 @@ export class PageProducts extends LitElement {
         lit-card .card-title {
           text-align: center;
           text-transform: uppercase;
-          width: 350px;
+          max-width: 200px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -118,6 +118,7 @@ export class PageProducts extends LitElement {
             @event-changed-category=${this._handleChangedCategory}
             @event-changed-size=${this._handleChangedSize}
             @event-changed-brand=${this._handleChangedBrand}
+            @event-clear-filters=${this._handleClearFilters}
           >
           </lit-filters>
         </div>
@@ -153,7 +154,6 @@ export class PageProducts extends LitElement {
     this.size = event.detail;
     this._filterProducts();
     this.requestUpdate();
-    
   }
 
   _handleChangedBrand(event) {
@@ -182,6 +182,12 @@ export class PageProducts extends LitElement {
         (product) => product.brand === this.brand
       );
     }
+  }
+
+  _handleClearFilters(clearFilters) {
+    console.log(clearFilters.detail, "hola")
+    this.productsCopy = this.products;
+    this.requestUpdate();
   }
 }
 

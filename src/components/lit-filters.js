@@ -19,6 +19,7 @@ class LitFilters extends LitElement {
         list-style: none;
         line-height: 2;
         color: #40423fbd;
+        cursor: pointer;
       }
 
       .filters p {
@@ -30,13 +31,26 @@ class LitFilters extends LitElement {
         display: flex;
         flex-wrap: wrap;
         gap: 2px;
-
       }
 
       .filters .size ul li {
         width: 30%;
         text-align: center;
         border: 1px solid #a8a9ab;
+      }
+
+      .filters .clear-filters {
+        margin-top: 30px;
+      }
+
+      .filters .clear-filters button {
+        padding: 10px 15px;
+        background-color: #353535;
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        font-size: 12px;
+        margin: 0 auto;
       }
     `;
   }
@@ -61,6 +75,7 @@ class LitFilters extends LitElement {
     this.category = null;
     this.size = null;
     this.brand = null;
+    this.clearFilters = null;
   }
 
   render() {
@@ -110,6 +125,11 @@ class LitFilters extends LitElement {
             )}
           </ul>
         </div>
+        <div class="clear-filters">
+          <button @click=${(clearFilters) => this._handleClickFilters(clearFilters)}>
+            Clear Filter
+          </button>
+        </div>
       </div>
     `;
   }
@@ -135,6 +155,13 @@ class LitFilters extends LitElement {
     );
     this.brand = brand;
     this.requestUpdate();
+  }
+
+  _handleClickFilters(clearFilters) {
+    this.dispatchEvent(
+      new CustomEvent("event-clear-filters", { detail: clearFilters})
+    );
+    console.log(clearFilters, "clear evento");
   }
 }
 

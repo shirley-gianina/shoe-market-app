@@ -22,6 +22,58 @@ export class PageProductDetail extends LitElement {
         *:after {
           box-sizing: inherit;
         }
+
+        .product-detail {
+          display: grid;
+          grid-template-columns: 30% 50% 20%;
+          align-items: center;
+          padding: 0px 100px;
+          background-color: #fff;
+        }
+
+        .product-detail .description p {
+          text-transform: uppercase;
+          font-weight: bold;
+          font-size: 15px;
+          color: #a8a9ab;
+        }
+
+        .product-detail .description h3 {
+          font-weight: bold;
+          font-size: 30px;
+        }
+
+        .product-detail .description span {
+          color: #d74dc6;
+          font-weight: bold;
+        }
+
+        .product-detail .description > div {
+          display: flex;
+          align-items: center;
+        }
+
+        .product-detail .description select {
+          margin: 0px 15px;
+          padding: 5px;
+        }
+
+        .product-detail .description button {
+          padding: 10px 15px;
+          background-color: #353535;
+          color: #fff;
+          border: none;
+          border-radius: 20px;
+          font-size: 12px;
+        }
+
+        .product-detail .image img {
+          width: 100%;
+        }
+
+        .product-detail .images img {
+          width: 100%;
+        }
       `,
     ];
   }
@@ -50,41 +102,54 @@ export class PageProductDetail extends LitElement {
  */
   render() {
     return html`
-      <p>ID: ${this.productId}</p>
       <div>
-        <!--    detail Products ${this.id} -->
-        <div>
-          ${this.product
-            ? html`
-                <div class="container box-detail">
-                  <div class="detail-text">
+        ${this.product?.id
+          ? html`
+              <div class="container">
+                <div class="product-detail">
+                  <div class="description">
                     <p>${this.product.category}</p>
                     <h3>${this.product.name}</h3>
                     <div>
                       <span>${this.product.price}</span>
-                      <span>select</span>
+                      <select
+                        name="select"
+                        Form.Select
+                        type="text"
+                        @change=${this._onChangeSelect}
+                        aria-label="Default select example"
+                      >
+                        ${this.product.size.map(
+                          (elem) =>
+                            html`<option value="${elem}">${elem}</option>`
+                        )}
+                      </select>
                       <button>Add to cart</button>
                     </div>
                   </div>
-                  <div class="detail-image">
+                  <div class="image">
                     <img src=${this.product.image} />
                   </div>
-                  <div class="detail-images">
+                  <div class="images">
                     <img src=${this.product["image-side"]} />
                     <img src=${this.product["image-behind"]} />
                   </div>
                 </div>
-              `
-            : html`<p>loading...</p>`}
-        </div>
+              </div>
+            `
+          : html`<p>loading...</p>`}
       </div>
     `;
   }
 
   _handleData(res) {
     this.product = { ...res };
-    console.log(this.product.name, "soy el product");
+    console.log(this.product.id, "soy el product y el id");
     this.requestUpdate();
+  }
+
+  _onChangeSelect(e) {
+    console.log(e.target.value);
   }
 }
 
