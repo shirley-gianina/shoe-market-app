@@ -18,19 +18,11 @@ class pageShoeCart extends LitElement {
 
   constructor() {
     super();
-    this.dataLocalStorage = [];
-    this.dataStorage = [];
-  }
-
-  firstUpdated() {
-    this.dataStorage = JSON.parse(localStorage.getItem("data"));
-    this.dataLocalStorage = [...this.dataStorage];
+    this.data = [];
   }
 
   render() {
-    console.log(this.dataLocalStorage, "soy la data de localstorage");
-
-    return html` ${this.dataLocalStorage?.map((product) => html` <p>${product.name}</p>`)}`;
+    return html` ${this.data?.map((product) => html` <p>${product.name}</p>`)}`;
   }
 }
 
