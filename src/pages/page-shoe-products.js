@@ -5,7 +5,7 @@ import globalCSS from "../styles/global";
 import "../components/lit-card";
 import "../components/lit-filters";
 
-export class PageProducts extends LitElement {
+export class PageShoeProducts extends LitElement {
   static get properties() {
     return {
       category: { type: String },
@@ -143,21 +143,21 @@ export class PageProducts extends LitElement {
   }
 
   _handleChangedCategory(event) {
-    console.log(event.detail, "category");
+  /*   console.log(event.detail, "category"); */
     this.category = event.detail;
     this._filterProducts();
     this.requestUpdate();
   }
 
   _handleChangedSize(event) {
-    console.log(event.detail, "size");
+/*     console.log(event.detail, "size"); */
     this.size = event.detail;
     this._filterProducts();
     this.requestUpdate();
   }
 
   _handleChangedBrand(event) {
-    console.log(event.detail, "brand");
+/*     console.log(event.detail, "brand"); */
     this.brand = event.detail;
     this._filterProducts();
     this.requestUpdate();
@@ -170,6 +170,7 @@ export class PageProducts extends LitElement {
         (product) => product.category === this.category
       );
     }
+
 
     if (this.size) {
       this.productsCopy = this.productsCopy.filter((product) =>
@@ -185,10 +186,10 @@ export class PageProducts extends LitElement {
   }
 
   _handleClearFilters(clearFilters) {
-    console.log(clearFilters.detail, "hola")
+    console.log(clearFilters.detail)
     this.productsCopy = this.products;
     this.requestUpdate();
   }
 }
 
-customElements.define("page-products", PageProducts);
+customElements.define("page-shoe-products", PageShoeProducts);

@@ -58,11 +58,14 @@ class LitHeader extends LitElement {
   }
 
   static get properties() {
-    return {};
+    return {
+      data: { type: Array },
+    };
   }
 
   constructor() {
     super();
+    this.data = [];
   }
 
   render() {
@@ -84,15 +87,30 @@ class LitHeader extends LitElement {
             </app-link>
             <h5>Men´s Lifestyle Sneakers</h5>
             <button>
-            <app-link href="cart">
-              <img src="./assets/carrito-icon.png" alt="carrito-icon-img" />
+              <app-link href="cart">
+                <img
+                  src="./assets/carrito-icon.png"
+                  alt="carrito-icon-img"
+                />
+              </app-link>
             </button>
-            </app-link>
           </div>
         </div>
       </header>
     `;
   }
+/*
+  _handleClicked(event) {
+    console.log(event, "soy el event desde  header");
+    this.dispatchEvent(
+      new CustomEvent("event-clicked-cart-icon", {
+        bubbles: true,
+        composed: true,
+        detail: event,
+      })
+    );
+    this.requestUpdate();
+  } */
 }
 
 customElements.define("lit-header", LitHeader);

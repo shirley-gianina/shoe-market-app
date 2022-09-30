@@ -161,7 +161,7 @@ class LitFilters extends LitElement {
     this.dispatchEvent(
       new CustomEvent("event-clear-filters", { detail: clearFilters})
     );
-    console.log(clearFilters, "clear evento");
+/*     console.log(clearFilters, "clear evento"); */
   }
 }
 

@@ -3,10 +3,10 @@ import { router } from "lit-element-router";
 
 import "./app-link";
 import "./app-main";
-import "./pages/page-cart";
-import "./pages/page-products";
-import "./pages/page-product-detail";
+import "./pages/page-shoe-products";
+import "./pages/page-shoe-product-detail";
 import "./components/lit-header";
+import "./pages/page-shoe-cart";
 
 class ShoeMarketApp extends router(LitElement) {
   static get properties() {
@@ -14,6 +14,7 @@ class ShoeMarketApp extends router(LitElement) {
       route: { type: String },
       params: { type: Object },
       query: { type: Object },
+      data: { type: Array },
     };
   }
 
@@ -43,6 +44,9 @@ class ShoeMarketApp extends router(LitElement) {
     this.route = "";
     this.params = {};
     this.query = {};
+    this.data = [];
+    this.newProduct = {};
+    this.dataStorage = [];
   }
 
   router(route, params, query, data) {
@@ -53,19 +57,34 @@ class ShoeMarketApp extends router(LitElement) {
 
   render() {
     return html`
-      <lit-header></lit-header>
+      <lit-header
+        @event-clicked-cart-icon=${this._handleClickCartIcon}
+        .data=${this.data}
+      ></lit-header>
       <app-main active-route=${this.route}>
-        <page-products route="home"></page-products>
+        <page-shoe-products route="home"></page-shoe-products>
 
         ${this.params.id
-          ? html` <page-product-detail
+          ? html` <page-shoe-product-detail
               route="product-detail"
               productId=${this.params.id}
-            ></page-product-detail>`
+              @event-add-cart=${(e) => this._handleAddCart(e)}
+            ></page-shoe-product-detail>`
           : ""}
-          <page-cart route="cart"></page-cart>
+        <page-shoe-cart .data=${this.data} route="cart"></page-shoe-cart>
       </app-main>
     `;
+  }
+
+  _handleAddCart(e) {
+    this.newProduct = e.detail;
+
+    this.data = [...this.data, this.newProduct];
+
+
+    this.dataStorage = localStorage.setItem("data", JSON.stringify(this.data));
+
+    this.requestUpdate();
   }
 }
 

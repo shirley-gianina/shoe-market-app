@@ -1,10 +1,11 @@
 import { LitElement, html, css } from "lit-element";
 import globalCSS from "../styles/global";
 
-export class PageProductDetail extends LitElement {
+export class PageShoeProductDetail extends LitElement {
   static get properties() {
     return {
       productId: { type: String },
+/*       data: { type: Array }, */
     };
   }
 
@@ -82,6 +83,8 @@ export class PageProductDetail extends LitElement {
     super();
     this.productId = null;
     this.product = null;
+    this.productCard = null;
+ /*    this.data = []; */
   }
 
   firstUpdated() {
@@ -92,14 +95,6 @@ export class PageProductDetail extends LitElement {
       .then((res) => this._handleData(res));
   }
 
-  /*   shouldUpdate(changedProperties) {
-    console.log("should update", changedProperties);
-    changedProperties.forEach((oldValue, propName) => {
-      console.log(`${propName} changed. oldValue: ${oldValue}`);
-    });
-    return true;
-  }
- */
   render() {
     return html`
       <div>
@@ -124,7 +119,12 @@ export class PageProductDetail extends LitElement {
                             html`<option value="${elem}">${elem}</option>`
                         )}
                       </select>
-                      <button>Add to cart</button>
+                      <button
+                        @click=${() =>
+                          this._handleDataCart()}
+                      >
+                        Add to cart
+                      </button>
                     </div>
                   </div>
                   <div class="image">
@@ -144,13 +144,24 @@ export class PageProductDetail extends LitElement {
 
   _handleData(res) {
     this.product = { ...res };
-    console.log(this.product.id, "soy el product y el id");
+/*     console.log(res, "res"); */
+
+
     this.requestUpdate();
   }
 
   _onChangeSelect(e) {
     console.log(e.target.value);
   }
+
+  _handleDataCart() {
+/*     this.data.push(this.product); */
+    this.dispatchEvent(
+      new CustomEvent("event-add-cart", { detail: this.product })
+    );
+
+/*     console.log(this.data, "soy data desde el hijo"); */
+  }
 }
 
-customElements.define("page-product-detail", PageProductDetail);
+customElements.define("page-shoe-product-detail", PageShoeProductDetail);
