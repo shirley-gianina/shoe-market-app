@@ -14,7 +14,7 @@ class ShoeMarketApp extends router(LitElement) {
       route: { type: String },
       params: { type: Object },
       query: { type: Object },
-      products: { type: Array },
+      cart: { type: Array },
     };
   }
 
@@ -44,12 +44,12 @@ class ShoeMarketApp extends router(LitElement) {
     this.route = "";
     this.params = {};
     this.query = {};
-    this.products = [];
+    this.cart = [];
   }
 
   firstUpdated() {
     const storageData = JSON.parse(localStorage.getItem("data"));
-    this.products = [...storageData];
+    this.cart = [...storageData];
   }
 
   router(route, params, query, data) {
@@ -74,15 +74,28 @@ class ShoeMarketApp extends router(LitElement) {
               @event-add-cart=${(e) => this._handleAddCart(e)}
             ></page-shoe-product-detail>`
           : ""}
-        <page-shoe-cart .data=${this.products} route="cart"></page-shoe-cart>
+        <page-shoe-cart .cart=${this.cart} route="cart"></page-shoe-cart>
       </app-main>
     `;
   }
 
   _handleAddCart(e) {
-    this.products = [...this.products, e.detail];
+    const product = e.detail;
+    const foundProduct = this.cart.find((elem) => elem.id === product.id);
+    if (foundProduct === undefined) {
+      const cartItem = {
+        ...product,
+        qty: 1,
+        total: product.price,
+      };
+      this.cart = [...this.cart, cartItem];
+    } else {
+      foundProduct.qty++;
+      foundProduct.total = foundProduct.price * foundProduct.qty;
+      this.cart = [...this.cart];
+    }
 
-    localStorage.setItem("data", JSON.stringify(this.products));
+    localStorage.setItem("data", JSON.stringify(this.cart));
     console.log(localStorage, "soy la data de localstorage");
 
     this.requestUpdate();
