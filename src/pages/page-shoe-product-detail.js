@@ -5,7 +5,7 @@ export class PageShoeProductDetail extends LitElement {
   static get properties() {
     return {
       productId: { type: String },
-/*       data: { type: Array }, */
+      /*       data: { type: Array }, */
     };
   }
 
@@ -30,6 +30,7 @@ export class PageShoeProductDetail extends LitElement {
           align-items: center;
           padding: 0px 100px;
           background-color: #fff;
+          margin-top: 40px;
         }
 
         .product-detail .description p {
@@ -66,6 +67,7 @@ export class PageShoeProductDetail extends LitElement {
           border: none;
           border-radius: 20px;
           font-size: 12px;
+          cursor: pointer;
         }
 
         .product-detail .image img {
@@ -84,7 +86,7 @@ export class PageShoeProductDetail extends LitElement {
     this.productId = null;
     this.product = null;
     this.productCard = null;
- /*    this.data = []; */
+    /*    this.data = []; */
   }
 
   firstUpdated() {
@@ -119,10 +121,7 @@ export class PageShoeProductDetail extends LitElement {
                             html`<option value="${elem}">${elem}</option>`
                         )}
                       </select>
-                      <button
-                        @click=${() =>
-                          this._handleDataCart()}
-                      >
+                      <button @click=${() => this._handleDataCart()}>
                         Add to cart
                       </button>
                     </div>
@@ -144,8 +143,7 @@ export class PageShoeProductDetail extends LitElement {
 
   _handleData(res) {
     this.product = { ...res };
-/*     console.log(res, "res"); */
-
+    /*     console.log(res, "res"); */
 
     this.requestUpdate();
   }
@@ -155,12 +153,12 @@ export class PageShoeProductDetail extends LitElement {
   }
 
   _handleDataCart() {
-/*     this.data.push(this.product); */
+    /*     this.data.push(this.product); */
     this.dispatchEvent(
       new CustomEvent("event-add-cart", { detail: this.product })
     );
 
-/*     console.log(this.data, "soy data desde el hijo"); */
+    /*     console.log(this.data, "soy data desde el hijo"); */
   }
 }
 

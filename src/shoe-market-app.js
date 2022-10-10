@@ -91,7 +91,7 @@ class ShoeMarketApp extends router(LitElement) {
       this.cart = [...this.cart, cartItem];
     } else {
       foundProduct.qty++;
-      foundProduct.total = foundProduct.price * foundProduct.qty;
+      foundProduct.total = foundProduct.price.toFixed(2) * foundProduct.qty;
       this.cart = [...this.cart];
     }
 
